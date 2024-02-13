@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMovies.Views.SearchPage"
+             xmlns:vm="clr-namespace:MauiAppMovies.ViewModels"
+             xmlns:behavior="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             BackgroundColor="{StaticResource Black}"
+             Title="SearchPage">
+    <ContentPage.BindingContext>
+        <vm:SearchPageViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+    <Grid RowDefinitions="70, *">
+        <StackLayout Padding="10" Orientation="Horizontal">
+            <Image Source="arred.png" HeightRequest="25" HorizontalOptions="Start" Margin="10, 10, 0, 0">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Border StrokeShape="RoundRectangle 14" Margin="30, 10, 0, 0">
+                <Entry BackgroundColor="White" WidthRequest="300" Text="{Binding NameFilme}" Placeholder="Pesquisar..." PlaceholderColor="Black">
+                    <Entry.Behaviors>
+                        <behavior:EventToCommandBehavior Command="{Binding TextSearchCommand}" EventName="TextChanged"/>
+                    </Entry.Behaviors>
+                </Entry>
+            </Border>
+        </StackLayout>
+        <CollectionView ItemsSource="{Binding AllFilms}" Grid.Row="1">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout>
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding Source={x:Reference vm}, Path=FilmDetailCommand}" CommandParameter="{Binding .}"/>
+                        </StackLayout.GestureRecognizers>
+                        <Border StrokeShape="RoundRectangle 10" Margin="70, 20" >
+                            <StackLayout >
+                                <Image Source="{Binding Poster}" HeightRequest="350"/>
+                                <Label Text="{Binding Titulo}" TextColor="White" HorizontalOptions="Center"/>
+                                <Label Text="{Binding Ano}" TextColor="White" HorizontalOptions="Center"/>
+                            </StackLayout>
+                        </Border>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+</ContentPage>

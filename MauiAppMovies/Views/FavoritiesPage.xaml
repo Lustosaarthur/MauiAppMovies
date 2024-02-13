@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMovies.Views.FavoritiesPage"
+             BackgroundColor="{StaticResource Black}"
+                          xmlns:behavior="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+             xmlns:vm="clr-namespace:MauiAppMovies.ViewModels"
+             Title="FavoritiesPage">
+    <ContentPage.BindingContext>
+        <vm:FavoritiesPageViewModel  x:Name="vm"/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid RowDefinitions="60, *">
+            <StackLayout Padding="10">
+                <Border StrokeShape="RoundRectangle 10" WidthRequest="350" Margin="10, 0, 0, 0">
+                    <Entry BackgroundColor="White" Placeholder="Pesquise pelos seus filmes favoritos" PlaceholderColor="Black" Text="{Binding TextSearch}">
+                        <Entry.Behaviors>
+                            <behavior:EventToCommandBehavior Command="{Binding TitleSearchCommand}" EventName="TextChanged"/>
+                        </Entry.Behaviors>
+                    </Entry>
+                </Border>
+            </StackLayout>
+            <VerticalStackLayout Padding="10" Grid.Row="1">
+                <CollectionView ItemsSource="{Binding Filmes}">
+                    <CollectionView.ItemsLayout>
+                        <GridItemsLayout Orientation="Vertical" Span="2" />
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference vm}, Path=FilmDetailCommand}" CommandParameter="{Binding .}"/>
+                                </StackLayout.GestureRecognizers>
+                                <Border StrokeShape="RoundRectangle 14" HeightRequest="250" WidthRequest="170">
+                                    <Image Source="{Binding Poster}" HeightRequest="350"/>
+                                </Border>
+                                <Label Text="{Binding Titulo}" TextColor="White" HorizontalOptions="Center" FontSize="25"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </VerticalStackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMovies.Views.Details.DetailFilmPage"
+             xmlns:vm="clr-namespace:MauiAppMovies.ViewModels.Details"
+             BackgroundColor="{StaticResource OffBlack}"
+             Title="DetailFilmPage">
+    
+    <ContentPage.BindingContext>
+        <vm:DetailFilmPageViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid>
+            <VerticalStackLayout>
+                <Border StrokeShape="RoundRectangle 1" HeightRequest="580">
+                    <Image Source="{Binding Filme.Poster}" HeightRequest="700"/>
+                </Border>
+                <StackLayout Padding="10" Orientation="Horizontal" >
+                    <Label Text="{Binding Filme.Titulo}" FontSize="25" TextColor="White" FontAttributes="Bold"/>
+                </StackLayout>
+                <CollectionView ItemsSource="{Binding FilmData}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout>
+                                <HorizontalStackLayout Padding="10">
+                                    <Label Text="Genre: " TextColor="White"/>
+                                    <Label Text="{Binding Genre}" TextColor="White"/>
+                                </HorizontalStackLayout>
+                                <HorizontalStackLayout Padding="10" Spacing="5">
+                                    <Image Source="addlisticon" HeightRequest="20"/>
+                                    <Label Text="Add to My list" TextColor="White" VerticalOptions="Center" />
+                                </HorizontalStackLayout>
+                                <Label Text="Plot" TextColor="White" FontSize="25" FontAttributes="Bold" Margin="5"/>
+                                <Label Text="{Binding Sinopse}" TextColor="White" Padding="10"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                
+            </VerticalStackLayout>
+            <Image Source="arred.png"  HeightRequest="40" HorizontalOptions="Start" Margin="5" VerticalOptions="Start">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding GoBackCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+            <Label Text="Details" VerticalOptions="Start" HorizontalOptions="Center" TextColor="White" FontSize="30" Margin="5" FontAttributes="Bold"/>
+            <Image Source="heartwhite.png" Margin="10" HeightRequest="40" HorizontalOptions="EndAndExpand" VerticalOptions="Start">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Command="{Binding SaveInDbCommand}"/>
+                </Image.GestureRecognizers>
+            </Image>
+        </Grid>
+    </ScrollView>
+</ContentPage>

@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="MauiAppMovies.Views.StratPage"
+             BackgroundColor="{StaticResource Black}"
+             xmlns:vm="clr-namespace:MauiAppMovies.ViewModels"
+             Title="StratPage">
+    <ContentPage.BindingContext>
+        <vm:StartPageViewModel x:Name="vm"/>
+    </ContentPage.BindingContext>
+    <ScrollView>
+        <Grid RowDefinitions="70, 30, *">
+            <Grid ColumnDefinitions="60, *, 60">
+                <Image Source="searchwhite.png" HeightRequest="25" VerticalOptions="Center" Margin="20, 0, 0, 00">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding GoToSearchCommand}"/>
+                    </Image.GestureRecognizers>
+                </Image>
+                <Image Grid.Column="2" VerticalOptions="Center" HorizontalOptions="Center" Source="homewhite" HeightRequest="30"/>
+            </Grid>
+
+            <StackLayout Grid.Row="1" Padding="10">
+                <CollectionView ItemsSource="{Binding Categories}" Grid.Row="1">
+                    <CollectionView.ItemsLayout>
+                        <LinearItemsLayout Orientation="Horizontal" ItemSpacing="15"/>
+                    </CollectionView.ItemsLayout>
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <Border Grid.Row="1" BackgroundColor="{StaticResource Gray600}" StrokeShape="RoundRectangle 10" WidthRequest="80" HeightRequest="30">
+                                <Border.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference vm}, Path=UpdateCollectionCommand}" CommandParameter="{Binding .}"/>
+                                </Border.GestureRecognizers>
+                                <Label Text="{Binding name}" FontAttributes="Bold" TextColor="White" HorizontalOptions="Center" VerticalOptions="Center" FontFamily="RubiksemiBold"/>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </StackLayout>
+            <StackLayout Grid.Row="2">
+                <StackLayout Padding="10">
+                    <CollectionView ItemsSource="{Binding Filmes}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference vm}, Path=GoToDetailCommand}" CommandParameter="{Binding .}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Image Source="{Binding Poster}" HeightRequest="250"/>
+                                    <Border StrokeShape="RoundRectangle 9">
+                                        <Label Text="{Binding Titulo}" HorizontalOptions="Center" MinimumWidthRequest="7" FontAttributes="Bold" Padding="5" TextColor="White" FontFamily="RubiksemiBold"/>
+                                    </Border>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Horror" TextColor="White" FontSize="20" Padding="10" FontFamily="RubiksemiBold"/>
+                    <CollectionView ItemsSource="{Binding FilmesHorror}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference vm}, Path=GoToDetailCommand}" CommandParameter="{Binding .}"/>
+                                    </StackLayout.GestureRecognizers>
+                                    <Image Source="{Binding Poster}" HeightRequest="250"/>
+                                    <Border StrokeShape="RoundRectangle 9">
+                                        <Label Text="{Binding Titulo}" HorizontalOptions="Center" MinimumWidthRequest="7" FontAttributes="Bold" Padding="5" TextColor="White" FontFamily="RubiksemiBold"/>
+                                    </Border>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+                <StackLayout>
+                    <Label Text="Horror" TextColor="White" FontSize="20" Padding="10" FontFamily="RubiksemiBold"/>
+                    <CollectionView ItemsSource="{Binding FilmesComedy}">
+                        <CollectionView.ItemsLayout>
+                            <LinearItemsLayout Orientation="Horizontal" ItemSpacing="5"/>
+                        </CollectionView.ItemsLayout>
+                        <CollectionView.ItemTemplate>
+                            <DataTemplate>
+                                <StackLayout Padding="10">
+                                    <StackLayout.GestureRecognizers>
+                                        <TapGestureRecognizer Command="{Binding Source={x:Reference vm}, Path=GoToDetailCommand}" CommandParameter="{Binding .}"/>
+                                        </StackLayout.GestureRecognizers>
+                                    <Image Source="{Binding Poster}" HeightRequest="250"/>
+                                    <Border StrokeShape="RoundRectangle 9">
+                                        <Label Text="{Binding Titulo}" HorizontalOptions="Center" MinimumWidthRequest="7" FontAttributes="Bold" Padding="5" TextColor="White" FontFamily="RubiksemiBold"/>
+                                    </Border>
+                                </StackLayout>
+                            </DataTemplate>
+                        </CollectionView.ItemTemplate>
+                    </CollectionView>
+                </StackLayout>
+            </StackLayout>
+        </Grid>
+    </ScrollView>
+</ContentPage>
